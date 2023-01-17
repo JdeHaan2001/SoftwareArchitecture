@@ -14,13 +14,13 @@ public class EnemyFactory : MonoBehaviour
     /// Will spawn the given enemy type
     /// </summary>
     /// <param name="pEnemyType">Index for the enemy Types list</param>
-    public void SpawnEnemy(int pEnemyType=0)
+    public Enemy SpawnEnemy(int pEnemyType=0)
     {
         //Error prevention I guess
         if (pEnemyType > enemyTypes.Count) Debug.LogError("Enemy Type not found, index is bigger than amount of enemy types", this);
 
         //Instantiate(enemyTypes[pEnemyType].enemyVisual, SpawnPos.position, SpawnPos.rotation);
-        enemyTypes[pEnemyType].Spawn(SpawnPos.position, SpawnPos.rotation);
+        return enemyTypes[pEnemyType].Spawn(SpawnPos.position, SpawnPos.rotation);
     }
 
     /// <summary>

@@ -9,10 +9,14 @@ public class EnemySO : ScriptableObject
     public float Speed = 5f;
     public int Money = 5;
     public int Damage = 5;
-    public GameObject enemy;
+    public GameObject Enemy;
 
-    public void Spawn(Vector3 pPosition, Quaternion pRotation)
+    public Enemy Spawn(Vector3 pPosition, Quaternion pRotation)
     {
-        Instantiate(enemy).GetComponent<Enemy>().SetData(this);
+        GameObject enemyObj = Instantiate(Enemy);
+        Enemy enemy = enemyObj.GetComponent<Enemy>();
+        enemy.SetData(this);
+        return enemy;
+        //Instantiate(enemy).GetComponent<Enemy>().SetData(this);
     }
 }

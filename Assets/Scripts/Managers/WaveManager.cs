@@ -16,16 +16,21 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private BaseManager baseManager;
 
     private EnemyFactory enemyFactory = null;
+    private MoneyManager moneyManager = null;
     private int waveNumber = 0;
     private bool isGamePaused = false;
+
+    private List<Enemy> activeEnemies = new List<Enemy>();
 
     private void Start()
     {
 
         enemyFactory = this.GetComponent<EnemyFactory>();
+        moneyManager = this.GetComponent<MoneyManager>();
 
         #region NULL checks
         if (enemyFactory == null) Debug.LogError("Variable enemyFactory is NULL", this);
+        if (moneyManager == null) Debug.LogError("Variable moneyManager is NULL", this);
         #endregion
         
         startWave();
@@ -69,12 +74,22 @@ public class WaveManager : MonoBehaviour
         {
             Debug.Log("Is game paused: " + isGamePaused);
             yield return new WaitForSeconds(enemyDelay);
-            enemyFactory.SpawnEnemy();
+            Enemy enemy = enemyFactory.SpawnEnemy();
+            activeEnemies.Add(enemy);
+            enemy.OnEnemyDeath += handleEnemyDeath;
+
             spawnedEnemies++;
         }
 
         if (spawnedEnemies == maxEnemies && waveNumber != amountOfWaves)
             StartCoroutine("timeToBuild");
+    }
+
+    private void handleEnemyDeath(Enemy pEnemy, int pMoney)
+    {
+        pEnemy.OnEnemyDeath -= handleEnemyDeath;
+        activeEnemies.Remove(pEnemy);
+        MoneyManager.Instance.AddMoney(pMoney);
     }
 
     private IEnumerator timeToBuild()

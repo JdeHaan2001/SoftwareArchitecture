@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private int money;
     private int damage;
 
-    public Action<int> onEnemyDeath;
+    public Action<Enemy, int> OnEnemyDeath;
 
     public void SetData(EnemySO pEnemySO)
     {
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     {
         Destroy(this.gameObject);
 
-        onEnemyDeath?.Invoke(money);
+        OnEnemyDeath?.Invoke(this, money);
     }
 
     private void Update()
