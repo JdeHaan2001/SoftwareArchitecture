@@ -8,10 +8,11 @@ public class MoneyManager : MonoBehaviour
     int money = 100;
 
     public Action<int> OnMoneyAmountChange;
-    public static MoneyManager Instance { get; private set; }
+    public static MoneyManager Instance;
 
     private void Awake()
     {
+        Debug.Log("Gets here");
         if (Instance == null)
         {
             Instance = this;

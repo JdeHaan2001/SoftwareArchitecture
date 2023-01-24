@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private BaseManager baseManager;
 
     private EnemyFactory enemyFactory = null;
-    private MoneyManager moneyManager = null;
+    private UIManager uiManager = null;
     private int waveNumber = 0;
     private bool isGamePaused = false;
 
@@ -26,11 +26,11 @@ public class WaveManager : MonoBehaviour
     {
 
         enemyFactory = this.GetComponent<EnemyFactory>();
-        moneyManager = this.GetComponent<MoneyManager>();
+        uiManager = this.GetComponent<UIManager>();
 
         #region NULL checks
         if (enemyFactory == null) Debug.LogError("Variable enemyFactory is NULL", this);
-        if (moneyManager == null) Debug.LogError("Variable moneyManager is NULL", this);
+        if (uiManager == null) Debug.LogError("Variable waveManager is NULL", this);
         #endregion
         
         startWave();
@@ -63,6 +63,7 @@ public class WaveManager : MonoBehaviour
     private void startWave()
     {
         waveNumber++;
+        uiManager.UpdateWaveNumberText(waveNumber);
         StartCoroutine("spawnEnemies");
     }
 

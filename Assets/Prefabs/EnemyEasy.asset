@@ -17,3 +17,5 @@ MonoBehaviour:
   Money: 5
   Damage: 5
   Enemy: {fileID: 4846997188922950804, guid: 161ab712072edee49abf66c0ffa67101, type: 3}
+  wayPoints:
+  - {fileID: 6430127431883538945, guid: c88f90a697bb2d64083ac91e8738823e, type: 3}
