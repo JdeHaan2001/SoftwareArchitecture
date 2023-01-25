@@ -11,13 +11,13 @@ public class EnemySO : ScriptableObject
     public int Money = 5;
     public int Damage = 5;
     public GameObject Enemy;
-    public List<GameObject> wayPoints;
 
-    public Enemy Spawn(Vector3 pPosition, Quaternion pRotation)
+    public Enemy Spawn(Vector3 pPosition, Quaternion pRotation, List<Transform> pWayPoints)
     {
         GameObject enemyObj = Instantiate(Enemy, pPosition, Quaternion.identity);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.SetData(this);
+        enemy.SetWayPoints(pWayPoints);
         return enemy;
     }
 }

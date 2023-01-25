@@ -5,12 +5,13 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
-    private List<GameObject> wayPoints;
+    private List<Transform> wayPoints;
 
     private float health;
     private float speed;
     private int money;
     private int damage;
+    private int wayPointIndex = 0;
 
     public Action<Enemy, int> OnEnemyDeath;
     public Action<int> OnEnemyDamage;
@@ -21,8 +22,9 @@ public class Enemy : MonoBehaviour
         speed = pEnemySO.Speed;
         money = pEnemySO.Money;
         damage = pEnemySO.Damage;
-        wayPoints = pEnemySO.wayPoints;
     }
+
+    public void SetWayPoints(List<Transform> pWayPoints) => wayPoints = pWayPoints;
 
     public int GetDamage() => damage;
 
@@ -44,9 +46,10 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        Vector3 deltaVec = wayPoints[0].transform.position - this.transform.position;
+        Vector3 deltaVec = wayPoints[wayPointIndex].transform.position - this.transform.position;
 
-        Vector3 moveDirection = new Vector3(0, 0, 1);
+        if (deltaVec.magnitude <= 0.1)
+            wayPointIndex++;
 
         this.transform.position += deltaVec.normalized * speed * Time.deltaTime;
     }
