@@ -12,7 +12,6 @@ public class MoneyManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Gets here");
         if (Instance == null)
         {
             Instance = this;

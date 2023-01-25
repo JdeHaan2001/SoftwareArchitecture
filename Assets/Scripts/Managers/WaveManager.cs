@@ -73,7 +73,6 @@ public class WaveManager : MonoBehaviour
 
         while (spawnedEnemies < maxEnemies && !isGamePaused)
         {
-            Debug.Log("Is game paused: " + isGamePaused);
             yield return new WaitForSeconds(enemyDelay);
             Enemy enemy = enemyFactory.SpawnEnemy();
             activeEnemies.Add(enemy);
