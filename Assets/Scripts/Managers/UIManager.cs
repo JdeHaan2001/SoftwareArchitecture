@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         loseText.SetActive(false);
-        //Very ugly fix for a null pointer
+        //Very ugly fix for a null pointer error
         //Put this here because the onEnable function gets called earlier then the awake of the Moneymanager
         //So if this isn't here then the instance of MoneyManager will be null
         if (MoneyManager.Instance != null)

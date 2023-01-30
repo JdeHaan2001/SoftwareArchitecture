@@ -10,8 +10,21 @@ public class BuyManager : MonoBehaviour
     private Color availableColor = new Color(0, 200, 0);
     [SerializeField]
     private Color unAvailableColor = new Color(0, 50, 0);
+    [Space()]
+    [SerializeField]
+    private Transform towerParentTransform = null;
 
     private BuildingTile tile = null;
+
+    private GameObject towerToBuy = null;
+
+    private bool isBuyingTower = false;
+
+    private void Start()
+    {
+        if (towerParentTransform == null)
+            Debug.LogError("towerParentTransform is NULL", this);
+    }
 
     private void Update()
     {
@@ -24,7 +37,6 @@ public class BuyManager : MonoBehaviour
         {
             tile.ChangeColor(this.defaultColor);
             tile = null;
-            Debug.Log("Changed color back to default");
         }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -32,6 +44,7 @@ public class BuyManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100))
         {
+            if (!isBuyingTower) return;
             if (hit.transform.tag != "BuildTile") return;
 
             BuildingTile tempTile = hit.transform.GetComponent<BuildingTile>();
@@ -44,7 +57,26 @@ public class BuyManager : MonoBehaviour
                 tempTile.ChangeColor(this.availableColor);
 
             tile = tempTile;
-            Debug.Log("Changed color");
+
+            if (Input.GetMouseButtonDown(0))
+                putTowerOnTile();
+            else if (Input.GetMouseButtonDown(1)) //Cancels buying the tower
+                isBuyingTower = false;
         }
+    }
+
+    private void putTowerOnTile()
+    {
+        if (towerToBuy == null) return;
+
+        Instantiate(towerToBuy, tile.transform.position, Quaternion.identity, towerParentTransform);
+        MoneyManager.Instance.RemoveMoney(towerToBuy.GetComponent<Tower>().BuyCost);
+        isBuyingTower = false;
+    }
+
+    public void HandleTowerBuy(GameObject pTower)
+    {
+        isBuyingTower = true;
+        towerToBuy = pTower;
     }
 }

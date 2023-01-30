@@ -23,7 +23,6 @@ public class BuildingTile : MonoBehaviour
 
     public void ChangeColor(Color pColor)
     {
-        Debug.Log(transform.name + " Chaning Color to: " + pColor);
         mesh.material.color = pColor;
     }
 }

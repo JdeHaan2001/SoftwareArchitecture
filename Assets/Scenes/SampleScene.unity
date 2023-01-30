@@ -6379,6 +6379,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7685015709109311185, guid: ed87a4a771582f14c827532bd0fa0cf2, type: 3}
   m_PrefabInstance: {fileID: 1086494506}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1099740449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099740450}
+  m_Layer: 0
+  m_Name: Towers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099740450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099740449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1281.7443, y: 501.75937, z: -25.688324}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1102260111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8337,6 +8368,7 @@ GameObject:
   - component: {fileID: 1368201682}
   - component: {fileID: 1368201681}
   - component: {fileID: 1368201680}
+  - component: {fileID: 1368201683}
   m_Layer: 5
   m_Name: STTower
   m_TagString: Untagged
@@ -8408,7 +8440,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1368201681}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1368201683}
+        m_TargetAssemblyTypeName: BuyTower, Assembly-CSharp
+        m_MethodName: HandleTowerBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1368201681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8447,6 +8491,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368201678}
   m_CullTransparentMesh: 1
+--- !u!114 &1368201683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368201678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbfd525800cf6643a3be46253ea49eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyManager: {fileID: 1434250730}
+  towerToSpawn: {fileID: 4925741075204147179, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
+  normalBtnColor: {r: 1, g: 1, b: 1, a: 1}
+  unAbleToBuyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ableToBuyColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1370737114
 GameObject:
   m_ObjectHideFlags: 0
@@ -8871,6 +8932,7 @@ MonoBehaviour:
   defaultColor: {r: 0.1254902, g: 0.43137258, b: 0.12941177, a: 1}
   availableColor: {r: 0, g: 200, b: 0, a: 1}
   unAvailableColor: {r: 0.1137255, g: 0.2901961, b: 0.121568635, a: 1}
+  towerParentTransform: {fileID: 1099740450}
 --- !u!1001 &1440329835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11465,7 +11527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -116.17395, y: -30}
+  m_AnchoredPosition: {x: -116.17383, y: -30}
   m_SizeDelta: {x: 232.3479, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981459053

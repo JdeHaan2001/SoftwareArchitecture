@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    int money = 100;
+    int money = 0;
 
     public Action<int> OnMoneyAmountChange;
     public static MoneyManager Instance;
@@ -24,6 +24,13 @@ public class MoneyManager : MonoBehaviour
     private void Start()
     {
         OnMoneyAmountChange?.Invoke(money);
+    }
+
+    private void Update()
+    {
+        //For testing purposes only
+        if (Input.GetKeyDown(KeyCode.M))
+            AddMoney(5);
     }
 
     public void AddMoney(int pMoney)
