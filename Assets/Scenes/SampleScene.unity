@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 6853170}
   - component: {fileID: 6853169}
   - component: {fileID: 6853168}
+  - component: {fileID: 6853171}
   m_Layer: 5
   m_Name: AOETower
   m_TagString: Untagged
@@ -272,7 +273,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6853169}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6853171}
+        m_TargetAssemblyTypeName: BuyTower, Assembly-CSharp
+        m_MethodName: HandleTowerBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6853169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +324,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6853166}
   m_CullTransparentMesh: 1
+--- !u!114 &6853171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6853166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbfd525800cf6643a3be46253ea49eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyManager: {fileID: 1434250730}
+  towerToSpawn: {fileID: -7781623851794352455, guid: c50dbf6601b560b48aac100da411c258, type: 3}
+  normalBtnColor: {r: 1, g: 1, b: 1, a: 1}
+  unAbleToBuyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ableToBuyColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &41511843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3248,7 +3278,7 @@ Transform:
   - {fileID: 952700379}
   - {fileID: 469101}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &518784865
 PrefabInstance:
@@ -4379,7 +4409,7 @@ Transform:
   - {fileID: 185571341}
   - {fileID: 1177434950}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &738316224
 PrefabInstance:
@@ -4508,7 +4538,7 @@ Transform:
   - {fileID: 1185546439}
   - {fileID: 876179200}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &780595708
 GameObject:
@@ -6408,7 +6438,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1102260111
 PrefabInstance:
@@ -6872,6 +6902,7 @@ GameObject:
   - component: {fileID: 1171373446}
   - component: {fileID: 1171373445}
   - component: {fileID: 1171373444}
+  - component: {fileID: 1171373447}
   m_Layer: 5
   m_Name: DebuffTower
   m_TagString: Untagged
@@ -6943,7 +6974,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1171373445}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1171373447}
+        m_TargetAssemblyTypeName: BuyTower, Assembly-CSharp
+        m_MethodName: HandleTowerBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1171373445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6982,6 +7025,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171373442}
   m_CullTransparentMesh: 1
+--- !u!114 &1171373447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171373442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbfd525800cf6643a3be46253ea49eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyManager: {fileID: 1434250730}
+  towerToSpawn: {fileID: 2876997491437216088, guid: 2f0cd633bd301524c828fe7e7f0400ed, type: 3}
+  normalBtnColor: {r: 1, g: 1, b: 1, a: 1}
+  unAbleToBuyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ableToBuyColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1177434949
 GameObject:
   m_ObjectHideFlags: 0
@@ -12225,71 +12285,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6248822220983287756, guid: 14f5d16af2be6fb4c82fd07bc9e3826c, type: 3}
   m_PrefabInstance: {fileID: 199306941894939278}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1747262836239717344
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1454795238047141503, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_Name
-      value: SingleTargetTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2645632078611533113, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925741075204147179, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: Range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925741075204147179, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
-      propertyPath: RateOfFire
-      value: 1.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 146a56cb7552fbe4b9575749fcfb34f6, type: 3}
 --- !u!1001 &7685015710127086182
 PrefabInstance:
   m_ObjectHideFlags: 0

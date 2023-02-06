@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum debuffType
+{
+    DAMAGE = 0, SPEED, MONEY
+}
+
 public class Enemy : MonoBehaviour
 {
     private List<Transform> wayPoints;
@@ -12,6 +17,7 @@ public class Enemy : MonoBehaviour
     private int money;
     private int damage;
     private int wayPointIndex = 0;
+    private bool isDebuffed = false;
 
     public Action<Enemy, int> OnEnemyDeath;
     public Action<int> OnEnemyDamage;
@@ -35,6 +41,29 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
             handleDeath();
         Debug.Log("Dealt damage to enemy");
+    }
+
+    public void DebuffEnemy(debuffType pType, float pMultiplier)
+    {
+        if (isDebuffed) return;
+
+        switch (pType)
+        {
+            case debuffType.DAMAGE:
+                damage = (int)Math.Round(damage / pMultiplier, MidpointRounding.AwayFromZero);
+                Debug.Log("Enemy damage debuff");
+                break;
+            case debuffType.MONEY:
+                money = (int)Math.Round(money * pMultiplier, MidpointRounding.AwayFromZero);
+                Debug.Log("Enemy money debuff");
+                break;
+            case debuffType.SPEED:
+                Debug.Log("Enemy speed debuff");
+                speed /= pMultiplier;
+                break;
+        }
+
+        isDebuffed = true;
     }
 
     private void handleDeath()

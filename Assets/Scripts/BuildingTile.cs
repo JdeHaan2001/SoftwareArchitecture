@@ -25,4 +25,10 @@ public class BuildingTile : MonoBehaviour
     {
         mesh.material.color = pColor;
     }
+
+    public void SetTowerObj(GameObject pTowerObj)
+    {
+        towerObj = pTowerObj;
+        hasTowerOnTile = true;
+    }
 }

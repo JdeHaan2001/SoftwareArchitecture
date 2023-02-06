@@ -70,6 +70,7 @@ public class BuyManager : MonoBehaviour
         if (towerToBuy == null) return;
 
         Instantiate(towerToBuy, tile.transform.position, Quaternion.identity, towerParentTransform);
+        tile.SetTowerObj(towerToBuy);
         MoneyManager.Instance.RemoveMoney(towerToBuy.GetComponent<Tower>().BuyCost);
         isBuyingTower = false;
     }

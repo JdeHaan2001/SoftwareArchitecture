@@ -5,11 +5,22 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public int Damage = 5;
-    public int BuyCost = 10;
-    public int UpgradeCost = 15;
-    public float UpgradeMultiplier = 1.3f;
-    public float Range = 50f;
+    [field: SerializeField]
+    public virtual int Damage { get; set; } = 5;
+    [field: SerializeField]
+    public virtual int BuyCost { get; set; } = 10;
+    [field: SerializeField]
+    public virtual int UpgradeCost { get; set; } = 15;
+    [field: SerializeField]
+    public virtual float Range { get; set; } = 50f;
+    [field: SerializeField]
+    protected virtual float UpgradeMultiplier { get; set; } = 1.3f;
+    [field: SerializeField]
+    protected float RateOfFire { get; set; } = 1.5f;
+
+
+    protected Enemy target;
+    protected bool isShooting = false;
 
     public virtual int BuyTower(Vector3 pPosition)
     {
@@ -33,6 +44,35 @@ public class Tower : MonoBehaviour
     public virtual int DealDamage()
     {
         return Damage;
+    }
+
+    public virtual void DetectEnemyInRange()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, Range);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.transform.tag == "Enemy")
+            {
+                Enemy enemy = hitCollider.GetComponent<Enemy>();
+
+                if (enemy == null)
+                    Debug.Log("Object doesn't contain Enemy component", this);
+                else
+                    target = enemy;
+            }
+        }
+
+        if (target != null && !isShooting)
+        {
+            IEnumerator coroutine = Shoot(target);
+            StartCoroutine(coroutine);
+        }
+
+    }
+
+    public virtual IEnumerator Shoot(Enemy pEnemy)
+    {
+        yield return new WaitForSeconds(0);
     }
 
     private void OnDrawGizmosSelected()
