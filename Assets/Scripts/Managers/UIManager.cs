@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private BaseManager baseManager;
-    [SerializeField]
     private GameObject loseText;
     [SerializeField]
     private TextMeshProUGUI moneyText;
@@ -18,6 +16,10 @@ public class UIManager : MonoBehaviour
     private float waitTimeMoneyChangeText = 3f;
     [SerializeField]
     private TextMeshProUGUI waveNumberText;
+    [SerializeField]
+    private TextMeshProUGUI timeToBuildText;
+
+    private WaveManager waveManager = null;
 
     private int moneyAmount = 0;
     private IEnumerator moneyChangeCoroutine;
@@ -25,6 +27,11 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         loseText.SetActive(false);
+        timeToBuildText.gameObject.SetActive(false);
+        waveManager = GetComponent<WaveManager>();
+        waveManager.OnIsWaveActiveChange += SetHandleTimeToBuildTimer;
+        waveManager.OnBuildTimeChange += updateBuildTimer;
+
         //Very ugly fix for a null pointer error
         //Put this here because the onEnable function gets called earlier then the awake of the Moneymanager
         //So if this isn't here then the instance of MoneyManager will be null
@@ -34,19 +41,34 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        baseManager.OnLoseGame += showLoseText;
-
         if(MoneyManager.Instance != null)
             MoneyManager.Instance.OnMoneyAmountChange += updateMoneyText;
+        if (waveManager != null)
+        {
+            waveManager.OnIsWaveActiveChange += SetHandleTimeToBuildTimer;
+            waveManager.OnBuildTimeChange += updateBuildTimer;
+        }
     }
 
     private void OnDisable()
     {
-        baseManager.OnLoseGame -= showLoseText;
         MoneyManager.Instance.OnMoneyAmountChange -= updateMoneyText;
+        if (waveManager != null)
+        {
+            waveManager.OnIsWaveActiveChange -= SetHandleTimeToBuildTimer;
+            waveManager.OnBuildTimeChange -= updateBuildTimer;
+        }
     }
 
-    private void showLoseText() => loseText.SetActive(true);
+    private void SetHandleTimeToBuildTimer(bool pIsWaveActive)
+    {
+        timeToBuildText.gameObject.SetActive(!pIsWaveActive);
+    }
+
+    private void updateBuildTimer(int pTime)
+    {
+        timeToBuildText.text = $"Time to build:\n{pTime}";
+    }
 
     private void updateMoneyText(int pMoney)
     {
@@ -54,6 +76,7 @@ public class UIManager : MonoBehaviour
         moneyAmount = pMoney;
         moneyText.text = pMoney.ToString();
 
+        if (moneyChangeAmount == 0) return;
         moneyChangeCoroutine = moneyChange(moneyChangeAmount);
 
         StartCoroutine(moneyChangeCoroutine);

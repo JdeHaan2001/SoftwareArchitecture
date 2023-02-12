@@ -5,7 +5,18 @@ using UnityEngine;
 
 public class AOETower : Tower
 {
+    [SerializeField]
+    private Material attackMaterial;
+    [SerializeField][Range(0.1f, 5.0f)]
+    private float attackIndicationDuration = 0.2f;
+
     private List<Enemy> enemies = new List<Enemy>();
+    private Material originalMaterial;
+
+    private void Start()
+    {
+        originalMaterial = GetComponent<Renderer>().material;
+    }
 
     private void Update()
     {
@@ -43,6 +54,7 @@ public class AOETower : Tower
 
         if (enemies.Count > 0)
         {
+            StartCoroutine("attackIndication");
             foreach (Enemy enemy in enemies)
                 enemy.DealDamageToEnemy(base.Damage);
         }
@@ -50,4 +62,10 @@ public class AOETower : Tower
         yield return new WaitForSeconds(base.RateOfFire);
         base.isShooting = false;
     }
-}
+
+    private IEnumerator attackIndication()
+    {
+        GetComponent<Renderer>().material = attackMaterial;
+        yield return new WaitForSeconds(attackIndicationDuration);
+        GetComponent<Renderer>().material = originalMaterial;
+    }}

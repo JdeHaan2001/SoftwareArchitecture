@@ -6,7 +6,6 @@ public class DebuffTower : Tower
 {
     [SerializeField]
     private debuffType typeDebuff = debuffType.SPEED;
-
     [SerializeField]
     private float debuffMultiplier = 2f;
 

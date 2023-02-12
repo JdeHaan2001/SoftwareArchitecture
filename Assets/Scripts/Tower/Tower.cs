@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Tower : MonoBehaviour
 {
@@ -12,33 +14,91 @@ public class Tower : MonoBehaviour
     [field: SerializeField]
     public virtual int UpgradeCost { get; set; } = 15;
     [field: SerializeField]
+    public virtual int SellProfit { get; set; } = 7;
+    [field: SerializeField]
     public virtual float Range { get; set; } = 50f;
     [field: SerializeField]
     protected virtual float UpgradeMultiplier { get; set; } = 1.3f;
     [field: SerializeField]
     protected float RateOfFire { get; set; } = 1.5f;
+    [SerializeField]
+    protected Canvas upgradeBtnCanvas = null;
+    [SerializeField]
+    protected TextMeshProUGUI upgradeCostText;
+    [SerializeField]
+    protected TextMeshProUGUI sellProfitText;
 
 
     protected Enemy target;
     protected bool isShooting = false;
+    protected Button upgradeButton;
+    protected Button sellButton;
+
+    private void Start()
+    {
+        //Very ugly fix for a null pointer error
+        //Put this here because the onEnable function gets called earlier then the awake of the Moneymanager
+        //So if this isn't here then the instance of MoneyManager will be null
+        if (MoneyManager.Instance != null)
+            MoneyManager.Instance.OnMoneyAmountChange += setUpgradeButtonStatus;
+
+            upgradeCostText.text = $"<b>Upgrade</b>\n{UpgradeCost}g";
+        sellProfitText.text = $"<b>Sell</b>\n{SellProfit}g";
+    }
+
+    private void OnEnable()
+    {
+        if (upgradeButton == null) upgradeButton = upgradeCostText.transform.parent.GetComponent<Button>();
+        if (sellButton == null) sellButton = sellProfitText.transform.parent.GetComponent<Button>();
+
+        upgradeButton.onClick.AddListener(Upgrade);
+        sellButton.onClick.AddListener(Sell);
+        MoneyManager.Instance.OnMoneyAmountChange += setUpgradeButtonStatus;
+    }
+
+    private void OnDisable()
+    {
+        upgradeButton.onClick.RemoveListener(Upgrade);
+        sellButton.onClick.RemoveListener(Sell);
+        MoneyManager.Instance.OnMoneyAmountChange -= setUpgradeButtonStatus;
+    }
+
+    private void setUpgradeButtonStatus(int pMoney)
+    {
+        if (pMoney < UpgradeCost)
+            upgradeButton.interactable = false;
+        else
+            upgradeButton.interactable = true;
+    }
 
     public virtual int BuyTower(Vector3 pPosition)
     {
         Instantiate(gameObject, pPosition, Quaternion.identity);
-        //Implement buying a tower
-        //Maybe spawning the tower should be a different function?
 
         return BuyCost;
     }
 
-    public virtual int Upgrade()
+    public virtual void Upgrade()
     {
-        //implement tower upgrade
-        int upgradeCost = UpgradeCost;
+        if (MoneyManager.Instance.GetMoneyAmount() < UpgradeCost) return;
+
+        MoneyManager.Instance.RemoveMoney(UpgradeCost);
 
         UpgradeCost = (int)Math.Round(UpgradeCost * UpgradeMultiplier, 0);
         Debug.Log("new upgrade cost " + UpgradeCost);
-        return upgradeCost;
+
+        Damage = (int)Math.Round(Damage * UpgradeMultiplier, 0);
+        Range = (int)Math.Round(Range * UpgradeMultiplier, 0);
+        SellProfit = (int)Math.Round(SellProfit * UpgradeMultiplier, 0);
+
+        upgradeCostText.text = $"<b>Upgrade</b>\n{UpgradeCost}g";
+        sellProfitText.text = $"<b>Sell</b>\n{SellProfit}g";
+    }
+
+    public virtual void Sell()
+    {
+        Destroy(this.gameObject);
+        MoneyManager.Instance.AddMoney(SellProfit);
     }
 
     public virtual int DealDamage()
@@ -74,6 +134,8 @@ public class Tower : MonoBehaviour
     {
         yield return new WaitForSeconds(0);
     }
+
+    public Canvas GetButtonPanel() => upgradeBtnCanvas;
 
     private void OnDrawGizmosSelected()
     {

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    int money = 0;
+    [SerializeField][Range(0, 500)]
+    private int money = 25;
 
     public Action<int> OnMoneyAmountChange;
     public static MoneyManager Instance;
@@ -44,4 +45,6 @@ public class MoneyManager : MonoBehaviour
         money -= pMoney;
         OnMoneyAmountChange?.Invoke(money);
     }
+
+    public int GetMoneyAmount() => money;
 }

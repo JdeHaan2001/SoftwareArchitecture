@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObjects/Enemy", order = 1)]
 public class EnemySO : ScriptableObject
 {
-    //TODO: Change this to serializable private variables
     public float Health = 10f;
     public float Speed = 5f;
     public int Money = 5;

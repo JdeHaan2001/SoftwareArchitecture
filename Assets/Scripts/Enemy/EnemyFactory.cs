@@ -5,31 +5,36 @@ using UnityEngine;
 public class EnemyFactory : MonoBehaviour
 {
     [SerializeField]
-    private List<EnemySO> enemyTypes = new List<EnemySO>();
-    [SerializeField]
     private List<Transform> wayPoints = new List<Transform>();
 
     public GameObject Enemy;
     public Transform SpawnPos;
 
     /// <summary>
-    /// Will spawn the given enemy type
+    /// Will spawn the given enemy type, used for debugging and testing purposes
     /// </summary>
     /// <param name="pEnemyType">Index for the enemy Types list</param>
-    public Enemy SpawnEnemy(int pEnemyType=0)
+    public Enemy SpawnEnemyTest(EnemySO pEnemy)
     {
         //Error prevention I guess
-        if (pEnemyType > enemyTypes.Count) Debug.LogError("Enemy Type not found, index is bigger than amount of enemy types", this);
+        if (pEnemy == null) Debug.LogError("Given paramater is NULL", this);
 
         //Instantiate(enemyTypes[pEnemyType].enemyVisual, SpawnPos.position, SpawnPos.rotation);
-        return enemyTypes[pEnemyType].Spawn(SpawnPos.position, SpawnPos.rotation, wayPoints);
+        return pEnemy.Spawn(SpawnPos.position, SpawnPos.rotation, wayPoints);
     }
 
     /// <summary>
-    /// Will spawn a random enemy
+    /// Will span a random enemy from the given list
     /// </summary>
-    public void SpawnRandomEnemy()
+    /// <param name="pEnemies"></param>
+    /// <returns></returns>
+    public Enemy SpawnEnemy(List<EnemySO> pEnemies)
     {
+        //if (pEnemies == null) Debug.LogError("Given List is NULL", this);
+        if (pEnemies.Count <= 0) Debug.LogError("Given list doesn't contain any enemies", this);
 
+        int randomNumber = Random.Range(0, pEnemies.Count);
+
+        return pEnemies[randomNumber].Spawn(SpawnPos.position, SpawnPos.rotation, wayPoints);
     }
 }

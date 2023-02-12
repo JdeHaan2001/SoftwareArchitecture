@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BaseManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class BaseManager : MonoBehaviour
     [SerializeField][Range(10, 500)]
     private int baseHealth = 50;
     [SerializeField]
-    private BaseHealthUI healthUI;
+    private string loseScene;
 
     public System.Action<int> OnDealDamageToBase;
     public System.Action OnLoseGame;
@@ -28,7 +29,7 @@ public class BaseManager : MonoBehaviour
         Debug.Log($"Base has {baseHealth} remaining");
 
         if (baseHealth <= 0)
-            OnLoseGame?.Invoke();
+            SceneManager.LoadScene(loseScene);
     }
 
     /// <summary>
@@ -40,8 +41,10 @@ public class BaseManager : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            DealDamageToBase(other.GetComponent<Enemy>().GetDamage());
+            Enemy enemy = other.GetComponent<Enemy>();
 
+            DealDamageToBase(enemy.GetDamage());
+            enemy.OnEnemyDeath?.Invoke(enemy, 0);
             Debug.Log($"Destroying object {other.name}");
             Destroy(other.gameObject);
         }

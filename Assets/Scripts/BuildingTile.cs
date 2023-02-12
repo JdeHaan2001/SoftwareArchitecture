@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class BuildingTile : MonoBehaviour
 {
-    private Color defaultColor = new Color(15, 113, 0);
-    private Color availableColor = new Color(15, 200, 0);
-    private Color unAvailableColor = new Color(15, 50, 0);
-
     private GameObject towerObj;
 
     private MeshRenderer mesh;

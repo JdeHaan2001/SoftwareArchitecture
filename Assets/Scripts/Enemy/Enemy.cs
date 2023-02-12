@@ -10,17 +10,29 @@ public enum debuffType
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    private Light attackIndicationLight;
+    [SerializeField]
+    [Range(0.1f, 5.0f)]
+    private float attackIndicationDuration = 0.2f;
+
     private List<Transform> wayPoints;
 
     private float health;
     private float speed;
     private int money;
     private int damage;
+
     private int wayPointIndex = 0;
     private bool isDebuffed = false;
 
     public Action<Enemy, int> OnEnemyDeath;
     public Action<int> OnEnemyDamage;
+
+    private void Start()
+    {
+        attackIndicationLight.gameObject.SetActive(false);
+    }
 
     public void SetData(EnemySO pEnemySO)
     {
@@ -47,6 +59,8 @@ public class Enemy : MonoBehaviour
     {
         if (isDebuffed) return;
 
+        StartCoroutine("attackIndication");
+
         switch (pType)
         {
             case debuffType.DAMAGE:
@@ -65,6 +79,7 @@ public class Enemy : MonoBehaviour
 
         isDebuffed = true;
     }
+    public float GetHealth() => health;
 
     private void handleDeath()
     {
@@ -83,5 +98,10 @@ public class Enemy : MonoBehaviour
         this.transform.position += deltaVec.normalized * speed * Time.deltaTime;
     }
 
-    public float GetHealth() => health;
+    private IEnumerator attackIndication()
+    {
+        attackIndicationLight.gameObject.SetActive(true);
+        yield return new WaitForSeconds(attackIndicationDuration);
+        attackIndicationLight.gameObject.SetActive(false);
+    }
 }

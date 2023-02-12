@@ -4,50 +4,45 @@ using UnityEngine;
 
 public class STTower : Tower
 {
+    [SerializeField]
+    private GameObject muzzleFlash;
+    [SerializeField][Range(0.1f, 5.0f)]
+    private float muzzleFlashDuration = 0.2f;
+
+    private void Start()
+    {
+        muzzleFlash.SetActive(false);
+    }
+
     private void Update()
     {
         DetectEnemyInRange();
+        aimAtTarget();
     }
 
-    public override int BuyTower(Vector3 pPosition)
+    private void aimAtTarget()
     {
-        return base.BuyTower(pPosition);
+        if (base.target == null) return;
+
+        Vector3 deltaVec = base.target.transform.position - this.transform.position;
+        deltaVec.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(deltaVec);
+        this.transform.rotation = rotation;
     }
 
-    public override int Upgrade()
+    private IEnumerator handleMuzzleFlash()
     {
-        return base.Upgrade();
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(muzzleFlashDuration);
+        muzzleFlash.SetActive(false);
     }
-
-    //public override void DetectEnemyInRange()
-    //{
-    //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, base.Range);
-    //    foreach (var hitCollider in hitColliders)
-    //    {
-    //        if (hitCollider.transform.tag == "Enemy")
-    //        {
-    //            Enemy enemy = hitCollider.GetComponent<Enemy>();
-
-    //            if (enemy == null)
-    //                Debug.Log("Object doesn't contain Enemy component", this);
-    //            else
-    //                base.target = enemy;
-    //        }
-    //    }
-
-    //    if (target != null && !isShooting)
-    //    {
-    //        IEnumerator coroutine = shoot(target);
-    //        StartCoroutine(coroutine);
-    //    }
-        
-    //}
 
     public override IEnumerator Shoot(Enemy pEnemy)
     {
         base.isShooting = true;
         while (target != null)
         {
+            StartCoroutine("handleMuzzleFlash");
             Debug.Log("Shooting");
             target.DealDamageToEnemy(base.Damage);
             yield return new WaitForSeconds(base.RateOfFire);

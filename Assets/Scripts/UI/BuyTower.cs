@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BuyTower : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class BuyTower : MonoBehaviour
     private Color unAbleToBuyColor = Color.gray;
     [SerializeField]
     private Color ableToBuyColor = Color.white;
+    [SerializeField]
+    private TextMeshProUGUI buyPriceText;
 
     private bool canBuyTower = false;
 
@@ -31,6 +34,8 @@ public class BuyTower : MonoBehaviour
     {
         if (MoneyManager.Instance != null)
             MoneyManager.Instance.OnMoneyAmountChange += setBuyStatus;
+
+        buyPriceText.text = towerToSpawn.BuyCost.ToString();
     }
 
     private void OnDisable()
@@ -46,13 +51,11 @@ public class BuyTower : MonoBehaviour
         if (pMoney >= towerToSpawn.BuyCost)
         {
             canBuyTower = true;
-            //TODO: Set Color of button to a lighter color
             image.color = ableToBuyColor;
         }
         else
         {
             canBuyTower = false;
-            //TODO: Set Color of button to a darker color
             image.color = unAbleToBuyColor;
         }
     }
