@@ -94,6 +94,9 @@ public class BuyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function only hides the canvas of the upgrade and sell buttons of the tower
+    /// </summary>
     private void hideButtonCanvas()
     {
         if (upgradeBtnCanvas != null)

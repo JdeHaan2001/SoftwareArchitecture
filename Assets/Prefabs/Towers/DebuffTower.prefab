@@ -921,11 +921,12 @@ MonoBehaviour:
   <Range>k__BackingField: 3
   <UpgradeMultiplier>k__BackingField: 1.3
   <RateOfFire>k__BackingField: 1.5
-  upGradeBtnCanvas: {fileID: 344404234}
+  upgradeBtnCanvas: {fileID: 344404234}
   upgradeCostText: {fileID: 349154129}
   sellProfitText: {fileID: 713993362}
   typeDebuff: 1
   debuffMultiplier: 2
+  doesRandomDebuff: 1
 --- !u!1 &2141286893278246982
 GameObject:
   m_ObjectHideFlags: 0

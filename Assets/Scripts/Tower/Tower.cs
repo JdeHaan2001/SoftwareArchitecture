@@ -42,7 +42,7 @@ public class Tower : MonoBehaviour
         if (MoneyManager.Instance != null)
             MoneyManager.Instance.OnMoneyAmountChange += setUpgradeButtonStatus;
 
-            upgradeCostText.text = $"<b>Upgrade</b>\n{UpgradeCost}g";
+        upgradeCostText.text = $"<b>Upgrade</b>\n{UpgradeCost}g";
         sellProfitText.text = $"<b>Sell</b>\n{SellProfit}g";
     }
 
@@ -54,6 +54,10 @@ public class Tower : MonoBehaviour
         upgradeButton.onClick.AddListener(Upgrade);
         sellButton.onClick.AddListener(Sell);
         MoneyManager.Instance.OnMoneyAmountChange += setUpgradeButtonStatus;
+
+        //Makes sure the text is always set correctly
+        upgradeCostText.text = $"<b>Upgrade</b>\n{UpgradeCost}g";
+        sellProfitText.text = $"<b>Sell</b>\n{SellProfit}g";
     }
 
     private void OnDisable()
@@ -95,17 +99,18 @@ public class Tower : MonoBehaviour
         sellProfitText.text = $"<b>Sell</b>\n{SellProfit}g";
     }
 
+    /// <summary>
+    /// Sells the tower
+    /// </summary>
     public virtual void Sell()
     {
         Destroy(this.gameObject);
         MoneyManager.Instance.AddMoney(SellProfit);
     }
 
-    public virtual int DealDamage()
-    {
-        return Damage;
-    }
-
+    /// <summary>
+    /// Detects if and which enemy is in range. If there is a target within range a coroutine will start which handles the shooting
+    /// </summary>
     public virtual void DetectEnemyInRange()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, Range);
@@ -130,6 +135,11 @@ public class Tower : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Handles dealing damage to the enemy
+    /// </summary>
+    /// <param name="pEnemy"></param>
+    /// <returns></returns>
     public virtual IEnumerator Shoot(Enemy pEnemy)
     {
         yield return new WaitForSeconds(0);

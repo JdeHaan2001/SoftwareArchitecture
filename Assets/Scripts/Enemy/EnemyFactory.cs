@@ -6,9 +6,8 @@ public class EnemyFactory : MonoBehaviour
 {
     [SerializeField]
     private List<Transform> wayPoints = new List<Transform>();
-
-    public GameObject Enemy;
-    public Transform SpawnPos;
+    [SerializeField]
+    private Transform SpawnPos;
 
     /// <summary>
     /// Will spawn the given enemy type, used for debugging and testing purposes

@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
+//using NUnit.Framework;
 
 public class WaveManager : MonoBehaviour
 {
     [Tooltip("Time, in seconds, the player has between waves to buy/repair/upgrade towers")]
     [SerializeField] [Range(15f, 90f)] private float timeBetweenWaves = 30f;
-    [SerializeField] private BaseManager baseManager;
-    [SerializeField]
+    [SerializeField][Tooltip("name of the scene the game switches to if the player wins the game")]
     private string winSceneName;
     [SerializeField]
     private List<WaveSO> waves = new List<WaveSO>();
@@ -17,15 +18,14 @@ public class WaveManager : MonoBehaviour
     private UIManager uiManager = null;
     private int waveNumber = 0;
     private int spawnedEnemyIndex = 0;
-    private bool isGamePaused = false;
 
     private List<Enemy> activeEnemies = new List<Enemy>();
     public bool IsWaveActive { get; private set; } = true; // is set to TRUE to "pause" the game.
-                                                           // If it's set to FALSE, the payer can buy towers before the game has started
+                                                           // If it's set to FALSE, the player can buy towers before the game has started
 
-    public System.Action<bool> OnIsWaveActiveChange;
-    public System.Action<int> OnBuildTimeChange;
-    public System.Action OnWaveStart;
+    public event System.Action<bool> OnIsWaveActiveChange;
+    public event System.Action<int> OnBuildTimeChange;
+    public event System.Action OnWaveStart;
 
     private void Start()
     {
@@ -38,30 +38,19 @@ public class WaveManager : MonoBehaviour
         //startWave(waves[0]);
     }
 
-    private void OnEnable()
-    {
-        baseManager.OnLoseGame += pauseGame;
-    }
-
-    private void OnDisable()
-    {
-        baseManager.OnLoseGame -= pauseGame;
-    }
-
     private void Update()
     {
+        //This is just here for testing purposes
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Space))
             enemyFactory.SpawnEnemyTest(waves[0].enemies[0]);
 #endif
     }
 
-    private void pauseGame()
-    {
-        isGamePaused = true;
-        Debug.Log("Pausing game");
-    }
-
+    /// <summary>
+    /// Starts a wave with the given wave scriptable object
+    /// </summary>
+    /// <param name="pWave"></param>
     private void startWave(WaveSO pWave)
     {
         IsWaveActive = true;
@@ -78,7 +67,7 @@ public class WaveManager : MonoBehaviour
     {
         int spawnedEnemies = 0;
 
-        while (spawnedEnemies < pWave.MaxEnemies && !isGamePaused)
+        while (spawnedEnemies < pWave.MaxEnemies)
         {
             yield return new WaitForSeconds(pWave.EnemyDelay);
             Enemy enemy = enemyFactory.SpawnEnemy(pWave.enemies);
@@ -94,9 +83,6 @@ public class WaveManager : MonoBehaviour
             Debug.Log("End of wave " + waveNumber);
             handleEndOfWave();
         }
-
-        //if (spawnedEnemies == pWave.MaxEnemies && waveNumber != waves.Count)
-        //    StartCoroutine("timeToBuild");
     }
 
     private void handleEnemyDeath(Enemy pEnemy, int pMoney)
@@ -146,8 +132,6 @@ public class WaveManager : MonoBehaviour
             StartCoroutine("timeToBuild");
         }
     }
-
-
 
     /// <summary>
     /// This function is only intended to be called by events. E.g. Button OnClick event

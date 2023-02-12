@@ -8,7 +8,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField][Range(0, 500)]
     private int money = 25;
 
-    public Action<int> OnMoneyAmountChange;
+    public event Action<int> OnMoneyAmountChange;
     public static MoneyManager Instance;
 
     private void Awake()

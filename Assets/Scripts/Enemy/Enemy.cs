@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum debuffType
+
+public enum EnemyState
 {
-    DAMAGE = 0, SPEED, MONEY
+    NORMAL_STATE = 0, SLOW_STATE, LOWER_DAMAGE_STATE, EXTRA_MONEY_STATE
 }
 
 public class Enemy : MonoBehaviour
@@ -15,6 +16,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     [Range(0.1f, 5.0f)]
     private float attackIndicationDuration = 0.2f;
+    [SerializeField]
+    EnemyState currenState = EnemyState.NORMAL_STATE;
 
     private List<Transform> wayPoints;
 
@@ -24,10 +27,9 @@ public class Enemy : MonoBehaviour
     private int damage;
 
     private int wayPointIndex = 0;
-    private bool isDebuffed = false;
 
-    public Action<Enemy, int> OnEnemyDeath;
-    public Action<int> OnEnemyDamage;
+    public event Action<Enemy, int> OnEnemyDeath;
+    public event Action<int> OnEnemyDamage;
 
     private void Start()
     {
@@ -46,6 +48,10 @@ public class Enemy : MonoBehaviour
 
     public int GetDamage() => damage;
 
+    /// <summary>
+    /// Deals damage to this enemy instance
+    /// </summary>
+    /// <param name="pDamage"></param>
     public void DealDamageToEnemy(int pDamage)
     {
         health -= pDamage;
@@ -55,31 +61,45 @@ public class Enemy : MonoBehaviour
         Debug.Log("Dealt damage to enemy");
     }
 
+    /// <summary>
+    /// Debuffs the enemy based on the given debuff type paramater
+    /// </summary>
     public void DebuffEnemy(debuffType pType, float pMultiplier)
     {
-        if (isDebuffed) return;
-
-        StartCoroutine("attackIndication");
+        if (currenState != EnemyState.NORMAL_STATE) return;
 
         switch (pType)
         {
             case debuffType.DAMAGE:
+                currenState = EnemyState.LOWER_DAMAGE_STATE;
                 damage = (int)Math.Round(damage / pMultiplier, MidpointRounding.AwayFromZero);
                 Debug.Log("Enemy damage debuff");
                 break;
             case debuffType.MONEY:
+                currenState = EnemyState.EXTRA_MONEY_STATE;
                 money = (int)Math.Round(money * pMultiplier, MidpointRounding.AwayFromZero);
                 Debug.Log("Enemy money debuff");
                 break;
             case debuffType.SPEED:
+                currenState = EnemyState.SLOW_STATE;
                 Debug.Log("Enemy speed debuff");
                 speed /= pMultiplier;
                 break;
         }
 
-        isDebuffed = true;
+        StartCoroutine("debuffIndication");
     }
     public float GetHealth() => health;
+
+    /// <summary>
+    /// Removes the enemy from the game without adding money to the player
+    /// Mainly used for when the enemy reaches the endpoint/base
+    /// </summary>
+    public void RemoveEnemyFromGame()
+    {
+        OnEnemyDeath?.Invoke(this, 0);
+        Destroy(gameObject);
+    }
 
     private void handleDeath()
     {
@@ -98,8 +118,26 @@ public class Enemy : MonoBehaviour
         this.transform.position += deltaVec.normalized * speed * Time.deltaTime;
     }
 
-    private IEnumerator attackIndication()
+    /// <summary>
+    /// Gives an indication that the player is debuffed. You can implement different types of indications per enemy state
+    /// </summary>
+    private IEnumerator debuffIndication()
     {
+        //base functionality to make different events happen based on the state of the enemy
+        //right now only the color of the light changes based on the enemy's state
+        switch (currenState)
+        {
+            case EnemyState.LOWER_DAMAGE_STATE:
+                attackIndicationLight.color = Color.red;
+                break;
+            case EnemyState.EXTRA_MONEY_STATE:
+                attackIndicationLight.color = Color.yellow;
+                break;
+            case EnemyState.SLOW_STATE:
+                attackIndicationLight.color = Color.cyan;
+                break;
+        }
+
         attackIndicationLight.gameObject.SetActive(true);
         yield return new WaitForSeconds(attackIndicationDuration);
         attackIndicationLight.gameObject.SetActive(false);

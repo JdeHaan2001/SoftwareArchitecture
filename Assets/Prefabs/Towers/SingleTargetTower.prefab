@@ -1128,7 +1128,7 @@ MonoBehaviour:
   <Range>k__BackingField: 3
   <UpgradeMultiplier>k__BackingField: 1.3
   <RateOfFire>k__BackingField: 1.5
-  upGradeBtnCanvas: {fileID: 964631317}
+  upgradeBtnCanvas: {fileID: 964631317}
   upgradeCostText: {fileID: 1064378469}
   sellProfitText: {fileID: 502018491}
   muzzleFlash: {fileID: 33372608}

@@ -11,8 +11,7 @@ public class BaseManager : MonoBehaviour
     [SerializeField]
     private string loseScene;
 
-    public System.Action<int> OnDealDamageToBase;
-    public System.Action OnLoseGame;
+    public event System.Action<int> OnDealDamageToBase;
 
     /// <summary>
     /// Deals damage to the base
@@ -44,9 +43,8 @@ public class BaseManager : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
 
             DealDamageToBase(enemy.GetDamage());
-            enemy.OnEnemyDeath?.Invoke(enemy, 0);
             Debug.Log($"Destroying object {other.name}");
-            Destroy(other.gameObject);
+            enemy.RemoveEnemyFromGame();
         }
     }
 }

@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
         loseText.SetActive(false);
         timeToBuildText.gameObject.SetActive(false);
         waveManager = GetComponent<WaveManager>();
-        waveManager.OnIsWaveActiveChange += SetHandleTimeToBuildTimer;
+        waveManager.OnIsWaveActiveChange += setHandleTimeToBuildTimer;
         waveManager.OnBuildTimeChange += updateBuildTimer;
 
         //Very ugly fix for a null pointer error
@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
             MoneyManager.Instance.OnMoneyAmountChange += updateMoneyText;
         if (waveManager != null)
         {
-            waveManager.OnIsWaveActiveChange += SetHandleTimeToBuildTimer;
+            waveManager.OnIsWaveActiveChange += setHandleTimeToBuildTimer;
             waveManager.OnBuildTimeChange += updateBuildTimer;
         }
     }
@@ -55,12 +55,12 @@ public class UIManager : MonoBehaviour
         MoneyManager.Instance.OnMoneyAmountChange -= updateMoneyText;
         if (waveManager != null)
         {
-            waveManager.OnIsWaveActiveChange -= SetHandleTimeToBuildTimer;
+            waveManager.OnIsWaveActiveChange -= setHandleTimeToBuildTimer;
             waveManager.OnBuildTimeChange -= updateBuildTimer;
         }
     }
 
-    private void SetHandleTimeToBuildTimer(bool pIsWaveActive)
+    private void setHandleTimeToBuildTimer(bool pIsWaveActive)
     {
         timeToBuildText.gameObject.SetActive(!pIsWaveActive);
     }
