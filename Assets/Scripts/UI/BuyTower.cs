@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Handles the logic for the tower buy menu at the bottom of the screen
+/// </summary>
 public class BuyTower : MonoBehaviour
 {
     [SerializeField]

@@ -16,4 +16,4 @@ MonoBehaviour:
   Speed: 5
   Money: 5
   Damage: 5
-  Enemy: {fileID: 4846997188922950804, guid: 161ab712072edee49abf66c0ffa67101, type: 3}
+  EnemyScript: {fileID: 410797052734665629, guid: 161ab712072edee49abf66c0ffa67101, type: 3}

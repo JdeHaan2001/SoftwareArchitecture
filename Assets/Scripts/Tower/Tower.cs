@@ -5,29 +5,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// This is the base class for the towers. A new tower type can inherit from this class to get some base logic like buying, upgrading or selling the tower.
+/// </summary>
 public class Tower : MonoBehaviour
 {
-    [field: SerializeField]
-    public virtual int Damage { get; set; } = 5;
-    [field: SerializeField]
-    public virtual int BuyCost { get; set; } = 10;
-    [field: SerializeField]
-    public virtual int UpgradeCost { get; set; } = 15;
-    [field: SerializeField]
-    public virtual int SellProfit { get; set; } = 7;
-    [field: SerializeField]
-    public virtual float Range { get; set; } = 50f;
-    [field: SerializeField]
-    protected virtual float UpgradeMultiplier { get; set; } = 1.3f;
-    [field: SerializeField]
-    protected float RateOfFire { get; set; } = 1.5f;
+    public int Damage = 5;
+    public int BuyCost = 10;
+    public int UpgradeCost = 15;
+    public int SellProfit = 7;
+    public float Range = 50f;
+
+    //The properties below are protected, because they should only be accessed by classes inheriting from this class.
+    //They have the SerializeField component, because I want them to be changed in the inspector so that e.g. a designer can quickly change some values
+    [SerializeField]
+    protected float UpgradeMultiplier = 1.3f;
+    [SerializeField]
+    protected float RateOfFire = 1.5f;
     [SerializeField]
     protected Canvas upgradeBtnCanvas = null;
     [SerializeField]
     protected TextMeshProUGUI upgradeCostText;
     [SerializeField]
     protected TextMeshProUGUI sellProfitText;
-
 
     protected Enemy target;
     protected bool isShooting = false;

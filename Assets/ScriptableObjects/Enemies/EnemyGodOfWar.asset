@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4b6d06cf885c3d4aba0feaf48afeea8, type: 3}
-  m_Name: EnemyFast
+  m_Name: EnemyGodOfWar
   m_EditorClassIdentifier: 
-  Health: 10
-  Speed: 15
-  Money: 5
-  Damage: 5
-  Enemy: {fileID: 5183868599277134893, guid: 0b5165a3369154645b392dd56050f084, type: 3}
+  Health: 50
+  Speed: 5
+  Money: 50
+  Damage: 20
+  EnemyScript: {fileID: 6153215571325740398, guid: a24497b32661ba34bb31349cc0c4cef1, type: 3}

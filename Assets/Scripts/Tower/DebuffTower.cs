@@ -7,6 +7,10 @@ public enum debuffType
     DAMAGE = 0, SPEED, MONEY
 }
 
+/// <summary>
+/// Debuff tower type. This tower will debuff an enemy based on what debuff type is selected. You can also select the option to let the tower randomly
+/// decide what type of debuff will be given to the enemy
+/// </summary>
 public class DebuffTower : Tower
 {
     [SerializeField]

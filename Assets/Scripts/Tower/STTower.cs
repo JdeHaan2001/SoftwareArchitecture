@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Single Target tower. This tower will attack the closest enemy within it's range.
+/// </summary>
 public class STTower : Tower
 {
     [SerializeField]

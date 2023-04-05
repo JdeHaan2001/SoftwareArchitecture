@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
-//using NUnit.Framework;
 
+/// <summary>
+/// This class handles everything related to a wave of enemies. This class also keeps track of all the active enemies that are in the game during a wave
+/// </summary>
 public class WaveManager : MonoBehaviour
 {
     [Tooltip("Time, in seconds, the player has between waves to buy/repair/upgrade towers")]

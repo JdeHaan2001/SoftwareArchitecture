@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable object where you can make a new wave by creating a new file in the project and changing the paramaters
+/// </summary>
 [CreateAssetMenu(fileName = "Wave", menuName = "ScriptableObjects/Wave", order = 3)]
 public class WaveSO : ScriptableObject
 {

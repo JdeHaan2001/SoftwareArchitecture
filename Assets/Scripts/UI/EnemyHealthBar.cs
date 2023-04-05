@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the logic for the healthbar of the enemies.
+/// </summary>
 public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField]

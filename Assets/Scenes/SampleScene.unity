@@ -6059,7 +6059,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6133,18 +6132,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 61.3, y: -90, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffe601f0863020488cfb200dbdb967f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &978939652
 GameObject:
   m_ObjectHideFlags: 0
@@ -9489,7 +9476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenWaves: 15
-  baseManager: {fileID: 549746522}
   winSceneName: WinScene
   waves:
   - {fileID: 11400000, guid: 0d69a348b85280740b58e932c20848b1, type: 2}
@@ -9521,7 +9507,6 @@ MonoBehaviour:
   - {fileID: 978939653}
   - {fileID: 185571341}
   - {fileID: 1177434950}
-  Enemy: {fileID: 4846997188922950804, guid: 161ab712072edee49abf66c0ffa67101, type: 3}
   SpawnPos: {fileID: 199306941894939279}
 --- !u!114 &1434250728
 MonoBehaviour:

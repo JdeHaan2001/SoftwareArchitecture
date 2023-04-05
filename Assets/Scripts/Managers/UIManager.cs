@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class handles the UI and HUD of the game
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     [SerializeField]

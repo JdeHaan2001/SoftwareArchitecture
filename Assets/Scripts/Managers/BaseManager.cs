@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This class handles all the logic of for the base that the enemies attack.
+/// </summary>
 public class BaseManager : MonoBehaviour
 {
-
     [SerializeField][Range(10, 500)]
     private int baseHealth = 50;
     [SerializeField]

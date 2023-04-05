@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class handles spawning the enemy
+/// </summary>
 public class EnemyFactory : MonoBehaviour
 {
     [SerializeField]

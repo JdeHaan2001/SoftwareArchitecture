@@ -9,6 +9,9 @@ public enum EnemyState
     NORMAL_STATE = 0, SLOW_STATE, LOWER_DAMAGE_STATE, EXTRA_MONEY_STATE
 }
 
+/// <summary>
+/// This class handles all the logic for the enemies. E.g. movement, what happens upon death or what happens when the enemy gets a debuff.
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -36,6 +39,10 @@ public class Enemy : MonoBehaviour
         attackIndicationLight.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Sets all the data in the enemy class.
+    /// </summary>
+    /// <param name="pEnemySO">Scriptable object where the data gets read from</param>
     public void SetData(EnemySO pEnemySO)
     {
         health = pEnemySO.Health;
@@ -44,6 +51,10 @@ public class Enemy : MonoBehaviour
         damage = pEnemySO.Damage;
     }
 
+    /// <summary>
+    /// Sets the waypoints for the waypoint based pathfinding algorithm
+    /// </summary>
+    /// <param name="pWayPoints"></param>
     public void SetWayPoints(List<Transform> pWayPoints) => wayPoints = pWayPoints;
 
     public int GetDamage() => damage;

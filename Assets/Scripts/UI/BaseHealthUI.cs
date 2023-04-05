@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Handles the logic for the health bar for the base.
+/// </summary>
 public class BaseHealthUI : MonoBehaviour
 {
     [SerializeField]

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Are of attack tower type. This tower will damage all enemies that are within its range.
+/// </summary>
 public class AOETower : Tower
 {
     [SerializeField]

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class handles the logic of buying, upgrading and selling towers. This class also handles the logic for changing the color of the 
+/// building tile based on if the player can build a tower on it or not.
+/// </summary>
 public class BuyManager : MonoBehaviour
 {
     [SerializeField]
@@ -37,8 +41,12 @@ public class BuyManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(waveManager != null)
+        if (waveManager != null)
+        {
+            //Cheeky way to make sure it only subscribes to the event once
+            waveManager.OnWaveStart -= hideButtonCanvas;
             waveManager.OnWaveStart += hideButtonCanvas;
+        }
     }
 
     private void OnDisable()
@@ -74,14 +82,18 @@ public class BuyManager : MonoBehaviour
             if (!waveManager.IsWaveActive)
             {
                 if (hit.transform.tag == "Tower")
-                    handleSetButtonCanvasActive(hit);
+                    handleSetUpgradeCanvasActive(hit);
                 else if (hit.transform.tag == "BuildTile")
                     handleTileColorChange(hit);
             }
         }
     }
 
-    private void handleSetButtonCanvasActive(RaycastHit pHit)
+    /// <summary>
+    /// If the left mouse button is clicked it will open the upgrade menu of the clicked tower
+    /// </summary>
+    /// <param name="pHit"></param>
+    private void handleSetUpgradeCanvasActive(RaycastHit pHit)
     {
         if (Input.GetMouseButtonDown(0))
         {
